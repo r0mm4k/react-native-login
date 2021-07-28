@@ -13,6 +13,7 @@ import {
 import { TRootStackParamList } from '../../App';
 import { emailValidator, passwordValidator } from '../helpers';
 import { theme } from '../core';
+import { login } from '../api';
 
 type TLoginScreenScreenNavigation = StackNavigationProp<
   TRootStackParamList,
@@ -23,22 +24,50 @@ interface ILoginScreen {
 }
 
 const LoginScreen: FC<ILoginScreen> = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
 
   const replaceRegisterScreen = () => navigation.replace('RegisterScreen');
   const showResetPasswordScreen = () =>
     navigation.navigate('ResetPasswordScreen');
-  const onChangeEmail = (text: string) =>
-    setEmail((data) => ({ ...data, value: text }));
+  const onChangeEmail = (text: string) => setEmail({ value: text, error: '' });
   const onChangePassword = (text: string) =>
-    setPassword((data) => ({ ...data, value: text }));
-  const onLogin = () => {
+    setPassword({ value: text, error: '' });
+  const onLoginValidator = () => {
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
 
-    if (emailError) setEmail((data) => ({ ...data, error: emailError }));
-    if (passwordError) setPassword((data) => ({ ...data, error: emailError }));
+    if (emailError || passwordError) {
+      if (emailError) setEmail((data) => ({ ...data, error: emailError }));
+      if (passwordError)
+        setPassword((data) => ({ ...data, error: passwordError }));
+
+      return true;
+    }
+
+    return false;
+  };
+  const onLoginReq = async () => {
+    try {
+      setLoading(true);
+
+      const user = await login({
+        email: email.value,
+        password: password.value,
+      });
+
+      alert(user.user?.displayName);
+    } catch ({ message }) {
+      alert(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const onLogin = async () => {
+    if (onLoginValidator()) return;
+
+    await onLoginReq();
   };
 
   return (
@@ -66,7 +95,7 @@ const LoginScreen: FC<ILoginScreen> = ({ navigation }) => {
           <Text style={styles.forgot}>Forgot your password?</Text>
         </TouchableOpacity>
       </View>
-      <Button mode="contained" onPress={onLogin}>
+      <Button mode="contained" loading={loading} onPress={onLogin}>
         Login
       </Button>
       <View style={styles.row}>

@@ -13,6 +13,7 @@ import {
 import { TRootStackParamList } from '../../App';
 import { emailValidator, nameValidator, passwordValidator } from '../helpers';
 import { theme } from '../core';
+import { signUp } from '../api';
 
 type TRegisterScreenScreenNavigation = StackNavigationProp<
   TRootStackParamList,
@@ -23,25 +24,53 @@ interface IRegisterScreen {
 }
 
 const RegisterScreen: FC<IRegisterScreen> = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
   const [name, setName] = useState({ value: '', error: '' });
   const [email, setEmail] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
 
   const replaceLoginScreen = () => navigation.replace('LoginScreen');
-  const onChangeName = (text: string) =>
-    setName((data) => ({ ...data, value: text }));
-  const onChangeEmail = (text: string) =>
-    setEmail((data) => ({ ...data, value: text }));
+  const onChangeName = (text: string) => setName({ value: text, error: '' });
+  const onChangeEmail = (text: string) => setEmail({ value: text, error: '' });
   const onChangePassword = (text: string) =>
-    setPassword((data) => ({ ...data, value: text }));
-  const onLogin = () => {
+    setPassword({ value: text, error: '' });
+  const onSignUpValidator = () => {
     const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
 
-    if (nameError) setName((data) => ({ ...data, error: emailError }));
-    if (emailError) setEmail((data) => ({ ...data, error: emailError }));
-    if (passwordError) setPassword((data) => ({ ...data, error: emailError }));
+    if (nameError || emailError || passwordError) {
+      if (nameError) setName((data) => ({ ...data, error: nameError }));
+      if (emailError) setEmail((data) => ({ ...data, error: emailError }));
+      if (passwordError)
+        setPassword((data) => ({ ...data, error: passwordError }));
+
+      return true;
+    }
+
+    return false;
+  };
+  const onSignUpReq = async () => {
+    try {
+      setLoading(true);
+
+      const user = await signUp({
+        name: name.value,
+        email: email.value,
+        password: password.value,
+      });
+
+      alert(user.user?.displayName);
+    } catch ({ message }) {
+      alert(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const onSignUp = async () => {
+    if (onSignUpValidator()) return;
+
+    await onSignUpReq();
   };
 
   return (
@@ -71,7 +100,7 @@ const RegisterScreen: FC<IRegisterScreen> = ({ navigation }) => {
         secureTextEntry
         onChangeText={onChangePassword}
       />
-      <Button mode="contained" onPress={onLogin}>
+      <Button mode="contained" loading={loading} onPress={onSignUp}>
         Sign Up
       </Button>
       <View style={styles.row}>

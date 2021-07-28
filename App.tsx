@@ -2,14 +2,19 @@ import React from 'react';
 import { Provider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import firebase from 'firebase/app';
 
-import { theme } from './src/core';
+import { FIREBASE_CONFIG, theme } from './src/core';
 import {
   LoginScreen,
   RegisterScreen,
   ResetPasswordScreen,
   StartScreen,
 } from './src/screens';
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(FIREBASE_CONFIG);
+}
 
 type TRootStackParamList = {
   StartScreen: undefined;
