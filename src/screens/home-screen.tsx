@@ -1,9 +1,8 @@
+import React, { FC } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useState } from 'react';
 
 import { TRootStackParamList } from '../../App';
-import { Background, Button, Header } from '../components';
-import { logout } from '../api';
+import { Background, Header } from '../components';
 
 type THomeScreenScreenNavigation = StackNavigationProp<
   TRootStackParamList,
@@ -14,24 +13,9 @@ interface IHomeScreen {
 }
 
 const HomeScreen: FC<IHomeScreen> = () => {
-  const [loading, setLoading] = useState(false);
-
-  const onLogout = async () => {
-    try {
-      setLoading(true);
-
-      await logout();
-    } catch ({ message }) {
-      alert(message);
-      setLoading(false);
-    }
-  };
   return (
     <Background>
       <Header>Home</Header>
-      <Button mode="contained" loading={loading} onPress={onLogout}>
-        Logout
-      </Button>
     </Background>
   );
 };

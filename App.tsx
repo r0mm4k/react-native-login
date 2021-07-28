@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import firebase from 'firebase/app';
 
 import { FIREBASE_CONFIG, theme } from './src/core';
@@ -9,10 +10,12 @@ import {
   HomeScreen,
   LoadingScreen,
   LoginScreen,
+  ProfileScreen,
   RegisterScreen,
   ResetPasswordScreen,
   StartScreen,
 } from './src/screens';
+import { HomeIcon, ProfileIcon } from './src/components';
 
 if (!firebase.apps.length) {
   firebase.initializeApp(FIREBASE_CONFIG);
@@ -21,6 +24,7 @@ if (!firebase.apps.length) {
 type TRootStackParamList = {
   LoadingScreen: undefined;
   HomeScreen: undefined;
+  ProfileScreen: undefined;
   StartScreen: undefined;
   LoginScreen: undefined;
   RegisterScreen: undefined;
@@ -28,6 +32,24 @@ type TRootStackParamList = {
 };
 
 const RootStack = createStackNavigator<TRootStackParamList>();
+const Tab = createBottomTabNavigator();
+
+const HomeTabs = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        options={{ tabBarIcon: ({ color }) => <HomeIcon fill={color} /> }}
+        component={HomeScreen}
+      />
+      <Tab.Screen
+        name="Profile"
+        options={{ tabBarIcon: ({ color }) => <ProfileIcon fill={color} /> }}
+        component={ProfileScreen}
+      />
+    </Tab.Navigator>
+  );
+};
 
 export default function App() {
   return (
@@ -38,7 +60,7 @@ export default function App() {
           screenOptions={{ headerShown: false }}
         >
           <RootStack.Screen name="LoadingScreen" component={LoadingScreen} />
-          <RootStack.Screen name="HomeScreen" component={HomeScreen} />
+          <RootStack.Screen name="HomeScreen" component={HomeTabs} />
           <RootStack.Screen name="StartScreen" component={StartScreen} />
           <RootStack.Screen name="LoginScreen" component={LoginScreen} />
           <RootStack.Screen name="RegisterScreen" component={RegisterScreen} />
