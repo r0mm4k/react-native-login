@@ -12,7 +12,9 @@ interface IStartScreen {
   navigation: TStartScreenScreenNavigation;
 }
 
-const StartScreen: FC<IStartScreen> = () => {
+const StartScreen: FC<IStartScreen> = ({ navigation }) => {
+  const showLoginScreen = () => navigation.navigate('LoginScreen');
+
   return (
     <Background>
       <Logo />
@@ -20,7 +22,9 @@ const StartScreen: FC<IStartScreen> = () => {
       <Paragraph>
         The easiest way to start with your amazing application.
       </Paragraph>
-      <Button mode="outlined">Login</Button>
+      <Button mode="outlined" onPress={showLoginScreen}>
+        Login
+      </Button>
       <Button mode="contained">Sign Up</Button>
     </Background>
   );
