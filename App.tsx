@@ -6,6 +6,8 @@ import firebase from 'firebase/app';
 
 import { FIREBASE_CONFIG, theme } from './src/core';
 import {
+  HomeScreen,
+  LoadingScreen,
   LoginScreen,
   RegisterScreen,
   ResetPasswordScreen,
@@ -17,6 +19,8 @@ if (!firebase.apps.length) {
 }
 
 type TRootStackParamList = {
+  LoadingScreen: undefined;
+  HomeScreen: undefined;
   StartScreen: undefined;
   LoginScreen: undefined;
   RegisterScreen: undefined;
@@ -30,9 +34,11 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <RootStack.Navigator
-          initialRouteName="StartScreen"
+          initialRouteName="LoadingScreen"
           screenOptions={{ headerShown: false }}
         >
+          <RootStack.Screen name="LoadingScreen" component={LoadingScreen} />
+          <RootStack.Screen name="HomeScreen" component={HomeScreen} />
           <RootStack.Screen name="StartScreen" component={StartScreen} />
           <RootStack.Screen name="LoginScreen" component={LoginScreen} />
           <RootStack.Screen name="RegisterScreen" component={RegisterScreen} />

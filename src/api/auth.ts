@@ -33,4 +33,8 @@ const resetPassword = async ({ email }: IResetPassword) => {
   await firebase.auth().sendPasswordResetEmail(email);
 };
 
-export { signUp, login, resetPassword };
+const logout = async () => {
+  await firebase.auth().signOut();
+};
+
+export { signUp, login, resetPassword, logout };

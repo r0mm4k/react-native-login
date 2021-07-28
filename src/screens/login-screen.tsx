@@ -6,6 +6,7 @@ import {
   BackButton,
   Background,
   Button,
+  GoogleLogin,
   Header,
   Logo,
   TextInput,
@@ -52,16 +53,13 @@ const LoginScreen: FC<ILoginScreen> = ({ navigation }) => {
     try {
       setLoading(true);
 
-      const user = await login({
+      await login({
         email: email.value,
         password: password.value,
       });
-
-      alert(user.user?.displayName);
     } catch ({ message }) {
-      alert(message);
-    } finally {
       setLoading(false);
+      alert(message);
     }
   };
   const onLogin = async () => {
@@ -98,6 +96,7 @@ const LoginScreen: FC<ILoginScreen> = ({ navigation }) => {
       <Button mode="contained" loading={loading} onPress={onLogin}>
         Login
       </Button>
+      <GoogleLogin />
       <View style={styles.row}>
         <Text>Don't have an account? </Text>
         <TouchableOpacity onPress={replaceRegisterScreen}>

@@ -6,6 +6,7 @@ import {
   BackButton,
   Background,
   Button,
+  GoogleLogin,
   Header,
   Logo,
   TextInput,
@@ -54,17 +55,14 @@ const RegisterScreen: FC<IRegisterScreen> = ({ navigation }) => {
     try {
       setLoading(true);
 
-      const user = await signUp({
+      await signUp({
         name: name.value,
         email: email.value,
         password: password.value,
       });
-
-      alert(user.user?.displayName);
     } catch ({ message }) {
-      alert(message);
-    } finally {
       setLoading(false);
+      alert(message);
     }
   };
   const onSignUp = async () => {
@@ -103,6 +101,7 @@ const RegisterScreen: FC<IRegisterScreen> = ({ navigation }) => {
       <Button mode="contained" loading={loading} onPress={onSignUp}>
         Sign Up
       </Button>
+      <GoogleLogin />
       <View style={styles.row}>
         <Text>Already have an account? </Text>
         <TouchableOpacity onPress={replaceLoginScreen}>

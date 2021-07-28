@@ -9,4 +9,8 @@ const FIREBASE_CONFIG = {
   appId: Constants.manifest?.extra?.APP_ID,
 };
 
-export { FIREBASE_CONFIG };
+const ANDROID_GOOGLE_CLIENT_ID =
+  Constants.manifest?.extra?.ANDROID_GOOGLE_CLIENT_ID;
+const IOS_GOOGLE_CLIENT_ID = Constants.manifest?.extra?.IOS_GOOGLE_CLIENT_ID;
+
+export { FIREBASE_CONFIG, ANDROID_GOOGLE_CLIENT_ID, IOS_GOOGLE_CLIENT_ID };
