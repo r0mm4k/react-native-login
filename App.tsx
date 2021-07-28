@@ -1,12 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-native-paper';
+
+import { Button, Header, TextInput } from './src/components';
+import { theme } from './src/core';
 
 export default function App() {
   return (
-    <Provider>
+    <Provider theme={theme}>
       <View style={styles.container}>
-        <Text>Open!</Text>
+        <Header>Open!</Header>
+        <Button mode="contained">Click me!</Button>
+        <TextInput label="email" />
       </View>
     </Provider>
   );
