@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import {
   BackButton,
@@ -11,32 +11,35 @@ import {
   TextInput,
 } from '../components';
 import { TRootStackParamList } from '../../App';
-import { emailValidator, passwordValidator } from '../helpers';
+import { emailValidator, nameValidator, passwordValidator } from '../helpers';
 import { theme } from '../core';
 
-type TLoginScreenScreenNavigation = StackNavigationProp<
+type TRegisterScreenScreenNavigation = StackNavigationProp<
   TRootStackParamList,
-  'LoginScreen'
+  'RegisterScreen'
 >;
-interface ILoginScreen {
-  navigation: TLoginScreenScreenNavigation;
+interface IRegisterScreen {
+  navigation: TRegisterScreenScreenNavigation;
 }
 
-const LoginScreen: FC<ILoginScreen> = ({ navigation }) => {
+const RegisterScreen: FC<IRegisterScreen> = ({ navigation }) => {
+  const [name, setName] = useState({ value: '', error: '' });
   const [email, setEmail] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
 
-  const replaceRegisterScreen = () => navigation.replace('RegisterScreen');
-  const showResetPasswordScreen = () =>
-    navigation.navigate('ResetPasswordScreen');
+  const replaceLoginScreen = () => navigation.replace('LoginScreen');
+  const onChangeName = (text: string) =>
+    setName((data) => ({ ...data, value: text }));
   const onChangeEmail = (text: string) =>
     setEmail((data) => ({ ...data, value: text }));
   const onChangePassword = (text: string) =>
     setPassword((data) => ({ ...data, value: text }));
   const onLogin = () => {
+    const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
 
+    if (nameError) setName((data) => ({ ...data, error: emailError }));
     if (emailError) setEmail((data) => ({ ...data, error: emailError }));
     if (passwordError) setPassword((data) => ({ ...data, error: emailError }));
   };
@@ -45,7 +48,14 @@ const LoginScreen: FC<ILoginScreen> = ({ navigation }) => {
     <Background>
       <BackButton goBack={navigation.goBack} />
       <Logo />
-      <Header>Welcome back.</Header>
+      <Header>Create Account</Header>
+      <TextInput
+        label="Name"
+        value={name.value}
+        error={!!name.error}
+        errorText={name.error}
+        onChangeText={onChangeName}
+      />
       <TextInput
         label="Email"
         value={email.value}
@@ -61,18 +71,13 @@ const LoginScreen: FC<ILoginScreen> = ({ navigation }) => {
         secureTextEntry
         onChangeText={onChangePassword}
       />
-      <View style={styles.forgotPassword}>
-        <TouchableOpacity onPress={showResetPasswordScreen}>
-          <Text style={styles.forgot}>Forgot your password?</Text>
-        </TouchableOpacity>
-      </View>
       <Button mode="contained" onPress={onLogin}>
-        Login
+        Sign Up
       </Button>
       <View style={styles.row}>
-        <Text>Don't have an account? </Text>
-        <TouchableOpacity onPress={replaceRegisterScreen}>
-          <Text style={styles.link}>Sign Up</Text>
+        <Text>Already have an account? </Text>
+        <TouchableOpacity onPress={replaceLoginScreen}>
+          <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
       </View>
     </Background>
@@ -80,18 +85,9 @@ const LoginScreen: FC<ILoginScreen> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  forgotPassword: {
-    width: '100%',
-    alignItems: 'flex-end',
-    marginBottom: 24,
-  },
   row: {
     flexDirection: 'row',
     marginTop: 4,
-  },
-  forgot: {
-    fontSize: 13,
-    color: theme.colors.secondary,
   },
   link: {
     fontWeight: 'bold',
@@ -99,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { LoginScreen };
+export { RegisterScreen };

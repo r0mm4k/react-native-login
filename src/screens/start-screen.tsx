@@ -14,6 +14,7 @@ interface IStartScreen {
 
 const StartScreen: FC<IStartScreen> = ({ navigation }) => {
   const showLoginScreen = () => navigation.navigate('LoginScreen');
+  const showRegisterScreen = () => navigation.navigate('RegisterScreen');
 
   return (
     <Background>
@@ -25,7 +26,9 @@ const StartScreen: FC<IStartScreen> = ({ navigation }) => {
       <Button mode="outlined" onPress={showLoginScreen}>
         Login
       </Button>
-      <Button mode="contained">Sign Up</Button>
+      <Button mode="contained" onPress={showRegisterScreen}>
+        Sign Up
+      </Button>
     </Background>
   );
 };

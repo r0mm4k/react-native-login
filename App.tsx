@@ -4,11 +4,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { theme } from './src/core';
-import { LoginScreen, StartScreen } from './src/screens';
+import {
+  LoginScreen,
+  RegisterScreen,
+  ResetPasswordScreen,
+  StartScreen,
+} from './src/screens';
 
 type TRootStackParamList = {
   StartScreen: undefined;
   LoginScreen: undefined;
+  RegisterScreen: undefined;
+  ResetPasswordScreen: undefined;
 };
 
 const RootStack = createStackNavigator<TRootStackParamList>();
@@ -23,6 +30,11 @@ export default function App() {
         >
           <RootStack.Screen name="StartScreen" component={StartScreen} />
           <RootStack.Screen name="LoginScreen" component={LoginScreen} />
+          <RootStack.Screen name="RegisterScreen" component={RegisterScreen} />
+          <RootStack.Screen
+            name="ResetPasswordScreen"
+            component={ResetPasswordScreen}
+          />
         </RootStack.Navigator>
       </NavigationContainer>
     </Provider>
