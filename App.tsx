@@ -3,6 +3,7 @@ import { Provider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import firebase from 'firebase/app';
 
 import { FIREBASE_CONFIG, theme } from './src/core';
@@ -15,7 +16,7 @@ import {
   ResetPasswordScreen,
   StartScreen,
 } from './src/screens';
-import { HomeIcon, ProfileIcon } from './src/components';
+import { DrawerContent, HomeIcon, ProfileIcon } from './src/components';
 
 if (!firebase.apps.length) {
   firebase.initializeApp(FIREBASE_CONFIG);
@@ -33,6 +34,7 @@ type TRootStackParamList = {
 
 const RootStack = createStackNavigator<TRootStackParamList>();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const HomeTabs = () => {
   return (
@@ -51,6 +53,14 @@ const HomeTabs = () => {
   );
 };
 
+const HomeDrawer = () => {
+  return (
+    <Drawer.Navigator drawerContent={DrawerContent}>
+      <Drawer.Screen name="Home" component={HomeTabs} />
+    </Drawer.Navigator>
+  );
+};
+
 export default function App() {
   return (
     <Provider theme={theme}>
@@ -60,7 +70,7 @@ export default function App() {
           screenOptions={{ headerShown: false }}
         >
           <RootStack.Screen name="LoadingScreen" component={LoadingScreen} />
-          <RootStack.Screen name="HomeScreen" component={HomeTabs} />
+          <RootStack.Screen name="HomeScreen" component={HomeDrawer} />
           <RootStack.Screen name="StartScreen" component={StartScreen} />
           <RootStack.Screen name="LoginScreen" component={LoginScreen} />
           <RootStack.Screen name="RegisterScreen" component={RegisterScreen} />

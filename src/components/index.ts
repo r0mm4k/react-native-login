@@ -1,6 +1,7 @@
 export * from './back-button';
 export * from './background';
 export * from './button';
+export * from './drawer-content';
 export * from './google-login';
 export * from './header';
 export * from './icons';
