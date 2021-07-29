@@ -1,6 +1,6 @@
 # React Native Login
 
-[![Fullstack.io](https://img.shields.io/badge/React_Native-Fullstack-5087B2.svg?style=flat&logo=react)](https://www.newline.co/courses/creating-a-react-native-login/)
+[![Fullstack.io](https://img.shields.io/badge/React_Native-NewLine-5087B2.svg?style=flat&logo=react)](https://www.newline.co/courses/creating-a-react-native-login/)
 [![LinkedIn](https://img.shields.io/badge/r0mm4k-Linkedin-5087B2.svg?style=flat&logo=linkedIn)](https://linkedin.com/in/r0mm4k)
 [![GitHub](https://img.shields.io/badge/r0mm4k-GitHub-lightgrey.svg?style=flat&logo=github)](https://github.com/r0mm4k)
 
