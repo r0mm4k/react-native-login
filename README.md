@@ -6,6 +6,9 @@
 
 Solutions to Fullstack.io's "Creating a React Native Login" projects.
 
+## 🔆 Demo
+Look EXPO [live-demo](https://expo.dev/@r0mm4k/react-native-login) example.
+
 ## ✨ Screenshots
 <img src="screenshots/start.png" width="320" alt="screen"/> <img src="screenshots/login.png" width="320" alt="screen"/>
 <img src="screenshots/register.png" width="320" alt="screen"/> <img src="screenshots/forgot-password.png" width="320" alt="screen"/>
