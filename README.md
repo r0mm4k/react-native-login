@@ -1,8 +1,8 @@
 # React Native Login
 
-[![Fullstack.io](https://img.shields.io/badge/Fullstack.io-React_Native-5087B2.svg?style=flat&logo=react)](https://www.newline.co/courses/creating-a-react-native-login/)
-[![LinkedIn](https://img.shields.io/badge/Linkedin-r0mm4k-5087B2.svg?style=flat&logo=linkedin)](https://linkedin.com/in/r0mm4k)
-[![GitHub](https://img.shields.io/badge/GitHub-r0mm4k-lightgrey.svg?style=flat&logo=github)](https://github.com/r0mm4k)
+[![Fullstack.io](https://img.shields.io/badge/React_Native-Fullstack-5087B2.svg?style=flat&logo=react)](https://www.newline.co/courses/creating-a-react-native-login/)
+[![LinkedIn](https://img.shields.io/badge/r0mm4k-Linkedin-5087B2.svg?style=flat&logo=linkedIn)](https://linkedin.com/in/r0mm4k)
+[![GitHub](https://img.shields.io/badge/r0mm4k-GitHub-lightgrey.svg?style=flat&logo=github)](https://github.com/r0mm4k)
 
 Solutions to Fullstack.io's "Creating a React Native Login" projects.
 
